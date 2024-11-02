@@ -1,6 +1,8 @@
-const Button = ({label}) =>{
+const Button = ({label,onClick}) =>{
     return(
-        <button className="bg-blue-500 text-white p-2 rounded-md mt-4 w-full ">
+        <button
+            onClick={onClick}
+         className="bg-blue-500 text-white p-2 rounded-md mt-4 w-full ">
             {label}
         </button>
     )
