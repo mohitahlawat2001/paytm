@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
-
-mongoose.connect('mongodb+srv://mohitahlawat:mohit12345@cluster0.zmrkc.mongodb.net/paytm?retryWrites=true&w=majority&appName=Cluster0')
+const dotenv = require('dotenv');
+dotenv.config();
+mongoose.connect(process.env.MONGODB_URI);
 
 const userSchema = new mongoose.Schema({
     firstName: String,
