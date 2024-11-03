@@ -13,6 +13,7 @@ const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 const SignIn = ({setIsLoggedIn}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const Navigate = useNavigate();
     return (
         <div className="bg-slate-300 min-h-screen flex justify-center">
@@ -25,6 +26,7 @@ const SignIn = ({setIsLoggedIn}) => {
           <div className="pt-4">
             <Button
             onClick={async ()=>{
+              try{
               const res = await axios.post(`${VITE_BACKEND_URL}/api/v1/user/signin`,{
                 email:email,
                 password:password
@@ -32,10 +34,14 @@ const SignIn = ({setIsLoggedIn}) => {
               const token = res.data.token;
               localStorage.setItem("token",token);
               setIsLoggedIn(true);
-              Navigate("/dashboard");
+              Navigate("/dashboard");}
+              catch(err){
+                setError(err.response.data.msg);
+              }
             } }
             label={"Sign in"} />
           </div>
+          <div className="text-red-500 pt-2">{error}</div>
           <BottomWarning label={"Don't have an account?"} buttonText={"Signup"} to={"/signup"} />
         </div>
       </div>

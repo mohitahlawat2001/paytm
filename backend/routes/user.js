@@ -31,13 +31,13 @@ router.post("/signup", async (req, res) => {
     const result = userSchema.safeParse(req.body);
     console.log(result);
     if (!result.success) {
-      res.status(400).json({
+      return res.status(400).json({
         msg: "input not valid",
       });
     }
     const userExists = await User.findOne({ email: req.body.email });
     if (userExists) {
-      res.status(400).json({
+      return res.status(400).json({
         msg: "user already exists",
       });
     }
@@ -53,8 +53,6 @@ router.post("/signup", async (req, res) => {
       userId: user._id,
     });
     account.save();
-
-
     const token = jwt.sign({ userId: user._id }, JWT_SECRET);
     res.json({
       token,

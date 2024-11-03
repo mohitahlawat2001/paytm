@@ -17,6 +17,7 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [error, setError] = useState("");
   return (
     <div className="bg-slate-300 min-h-screen flex justify-center ">
       <div className="flex flex-col justify-center">
@@ -45,12 +46,14 @@ const SignUp = () => {
                   console.log(res.data)
                   navigate("/dashboard")
                 }).catch((err)=>{
+                  setError(err.response.data.msg)
                   console.log(err)
                 })
               }
             }
             label={"Sign Up"} />
           </div>
+          <div className="text-red-500 pt-2">{error}</div>
           <BottomWarning label={"Already have an account?"} buttonText={"Signin"} to={"/signin"} />
         </div>
       </div>
