@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import BottomWarning from "../components/BottomWarning";
 import Button from "../components/Button";
@@ -6,7 +7,6 @@ import Heading from "../components/Heading";
 import InputBox from "../components/InputBox";
 import SubHeading from "../components/SubHeading";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
