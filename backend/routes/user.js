@@ -100,7 +100,7 @@ router.put("/", authMiddleware, async (req, res) => {
         msg: "input not valid",
       });
     }
-    await User.updateOne({ _id: req.userId }, req.body);
+    await User.updateOne({ _id: req.headers.userId }, req.body);
     res.json({
       msg: "user updated",
     });
@@ -135,6 +135,30 @@ router.get("/bulk", async (req, res) => {
   } catch (error) {
     res.status(500).json({
       msg: "error",
+    });
+  }
+});
+
+router.get("/me", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findOne({ _id: req.headers.userId });
+    if (!user) {
+      return res.status(404).json({ msg: 'User not found', loggedIn: false });
+    }
+    res.json({
+      msg: 'User is logged in',
+      loggedIn: true,
+      user: {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        _id: user._id,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({
+      msg: error.message,
+      loggedIn: false,
     });
   }
 });
