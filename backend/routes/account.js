@@ -57,6 +57,7 @@ router.post("/transfer", authMiddleware, async (req, res) => {
 
     res.json({
         msg: "Transfer success",
+        balanceLeft: balanceAfterTransfer.balance,
         balanceBeforeTransfer: balanceBeforeTransfer.balance,
         balanceAfterTransfer: balanceAfterTransfer.balance,
         balanceBeforeTransferTo: balanceBeforeTransferTo.balance,
