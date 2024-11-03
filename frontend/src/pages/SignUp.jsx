@@ -30,7 +30,7 @@ const SignUp = () => {
           <InputBox onChange={(e) => setEmail(e.target.value)}
            placeholder={"john@mail.com"} label={"Email"} />
           <InputBox onChange={(e) => setPassword(e.target.value)}
-          placeholder={"password"} label={"Password"} />
+          placeholder={"password"} label={"Password"} type={"password"} />
           <div className="pt-4">
             <Button onClick={
               ()=>{

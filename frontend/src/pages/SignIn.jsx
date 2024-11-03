@@ -22,7 +22,7 @@ const SignIn = ({setIsLoggedIn}) => {
           <Heading label={"SignIn"} />
            <SubHeading label={"enter your credentials"} />
           <InputBox placeholder={"john@mail.com"} label={"Email"} onChange={(e) => setEmail(e.target.value)} />
-          <InputBox placeholder={"password"} label={"Password"} onChange={(e) => setPassword(e.target.value)} />
+          <InputBox placeholder={"password"} label={"Password"} onChange={(e) => setPassword(e.target.value)} type={"password"} />
           <div className="pt-4">
             <Button
             onClick={async ()=>{
