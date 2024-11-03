@@ -5,22 +5,29 @@ import axios from 'axios';
 const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 const Send = () => {
     const [searchParams] = useSearchParams();
-    const to = searchParams.get('to');
-    const name = searchParams.get('name');
+    const [transferMsg, setTransferMsg] = useState('');
+    const to = searchParams.get('to') || 'address not found';
+    const name = searchParams.get('name') || 'Need name';
 
     const [amount, setAmount] = useState(0);
 
     const sendMoney = async () => {
         const token = localStorage.getItem("token");
-        const res = await axios.post(`${VITE_BACKEND_URL}/api/v1/account/transfer`, {
-            to,
-            amount,
-        }, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            }
-        });
-        console.log(res.data);
+        try{
+
+            const res = await axios.post(`${VITE_BACKEND_URL}/api/v1/account/transfer`, {
+                to,
+                amount,
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            });
+            setTransferMsg(res.data.msg);
+        } catch (error) {
+            setTransferMsg(error.response.data.msg);
+        }
+        // console.log(res.data);
     }
 
     return (
@@ -49,6 +56,9 @@ const Send = () => {
                     className="w-full bg-green-500 text-white p-2 rounded-lg">
                         Send
                     </button>
+                </div>
+                <div className="px-6 mt-4 flex justify-center font-light" >
+                    {transferMsg}
                 </div>
                 
             </div>

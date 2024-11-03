@@ -10,7 +10,7 @@ import axios from "axios";
 
 const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-const SignIn = () => {
+const SignIn = ({setIsLoggedIn}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const Navigate = useNavigate();
@@ -18,7 +18,7 @@ const SignIn = () => {
         <div className="bg-slate-300 min-h-screen flex justify-center">
       <div className="flex flex-col justify-center">
         <div className="w-80 bg-white p-8 rounded-lg shadow-lg flex flex-col justify-center text-center">
-          <Heading label={"SignUp"} />
+          <Heading label={"SignIn"} />
            <SubHeading label={"enter your credentials"} />
           <InputBox placeholder={"john@mail.com"} label={"Email"} onChange={(e) => setEmail(e.target.value)} />
           <InputBox placeholder={"password"} label={"Password"} onChange={(e) => setPassword(e.target.value)} />
@@ -31,11 +31,12 @@ const SignIn = () => {
               });
               const token = res.data.token;
               localStorage.setItem("token",token);
+              setIsLoggedIn(true);
               Navigate("/dashboard");
             } }
             label={"Sign in"} />
           </div>
-          <BottomWarning label={"Don't have an account?"} buttonText={"Signup"} to={"/"} />
+          <BottomWarning label={"Don't have an account?"} buttonText={"Signup"} to={"/signup"} />
         </div>
       </div>
     </div>
